@@ -1,52 +1,44 @@
-import React, { useState } from "react";
-import "../styles.css"
-import Zoom from "@mui/material/Zoom";
-import AddIcon from '@mui/icons-material/Add';
-import Fab from '@mui/material/Fab';
+import { useState } from "react";
+import { TextField, Button, Card, CardContent } from "@mui/material";
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css';
 
-function CreateArea(props) {
+function CreateArea({ onAdd }) {
+  const [note, setNote] = useState({ title: "", content: "" });
 
-    const [isExpanded, setExpended] = useState(false)
+  const handleChange = (name, value) => {
+    setNote((prev) => ({ ...prev, [name]: value }));
+  };
 
-    const [note, setNote] = useState({
-        title: "",
-        content: ""
-    });
+  const submitNote = (e) => {
+    e.preventDefault();
+    if (!note.title || !note.content) return;
+    onAdd(note);
+    setNote({ title: "", content: "" });
+  };
 
-    function handleExpand() {
-        setExpended(true);
-    }
-
-    function handleInput(event) {
-        const {name, value} = event.target;
-        setNote((prevNote) => {
-            return {
-            ...prevNote,
-            [name]: value
-    }});
-    }
-
-    function submitNote(event) {
-        props.onAdd(note);
-        setNote({
-            title: "",
-            content: ""
-        })
-        event.preventDefault();
-    }
-
-
-
-
-return (
-    <div>
-    <form className="create-note">
-        {isExpanded && <input name="title" onChange={handleInput} placeholder="Title" value={note.title}/>}
-        <textarea name="content" onClick={handleExpand} onChange={handleInput} placeholder="Take a note..." rows={isExpanded ? 3 : 1} value={note.content}/>
-        <Zoom in={isExpanded}><Fab onClick={submitNote}><AddIcon /></Fab></Zoom>
-    </form>
-    </div>
-    );
+  return (
+    <Card sx={{ margin: 2, padding: 2 }}>
+      <CardContent>
+        <TextField
+          label="Title"
+          fullWidth
+          value={note.title}
+          onChange={(e) => handleChange("title", e.target.value)}
+          sx={{ marginBottom: 2 }}
+        />
+        <ReactQuill
+          value={note.content}
+          onChange={(value) => handleChange("content", value)}
+          theme="snow"
+          placeholder="Write something..."
+        />
+        <Button variant="contained" sx={{ marginTop: 2 }} onClick={submitNote}>
+          Add
+        </Button>
+      </CardContent>
+    </Card>
+  );
 }
 
 export default CreateArea;

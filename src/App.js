@@ -1,49 +1,31 @@
-import React, { useState } from 'react';
-import './styles.css';
-import Header from "./component/header";
-import Note from "./component/note";
-import Footer from "./component/footer";
-import CreateArea from './component/createArea';
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from "./component/auth/Login";
+import Signup from "./component/auth/Signup";
+import HomePage from "./component/HomePage"; // This is your main note-taking page
+import PrivateRoute from "./component/PrivateRoute"; // Protect routes
+import { useAuth } from "./context/AuthContext";
+import { ThemeProvider } from "./context/ThemeContext"; // Import ThemeProvider
 
 function App() {
-  const [noteItem, setNoteItem] = useState([]);
-
-  function addNote(note) {
-    setNoteItem((prevItems) => {
-      return [...prevItems, note];
-    });
-  }
-
-  function deleteNote(id) {
-    setNoteItem((prevItems) => {
-      return prevItems.filter((item, index) => {
-      return index!==id;
-      })
-    });
-  }
-
-
+  const { user } = useAuth();
 
   return (
-    <div>
-      <Header />
-      <CreateArea 
-      onAdd = {addNote}
-      />
-      {
-        noteItem.map((item, index) => {
-        return (
-        <Note 
-        id = {index}
-        key = {index}
-        title = {item.title}
-        content = {item.content}
-        onDelete = {deleteNote}
-        />
-      )})}
-      <Footer />
-    </div>
+    <ThemeProvider>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/"
+            element={
+              <PrivateRoute>
+                <HomePage />
+              </PrivateRoute>
+            }
+          />
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 }
 

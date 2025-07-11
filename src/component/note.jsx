@@ -1,22 +1,18 @@
-import React from "react";
-import "../styles.css";
-import DeleteIcon from '@mui/icons-material/Delete';
-function Note(props) {
+import { Card, CardContent, Typography, IconButton } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-
-  function handleDelete() {
-    props.onDelete(props.id);
-  }
-
-
-
+function Note({ title, content, onDelete, id }) {
   return (
-    <div className="note">
-      <h1>{props.title}</h1>
-      <p>{props.content}</p>
-      <button onClick={handleDelete}><DeleteIcon /></button>
-    </div>
+    <Card sx={{ margin: 2, padding: 1, width: 300 }}>
+      <CardContent>
+        <Typography variant="h6">{title}</Typography>
+        <div dangerouslySetInnerHTML={{ __html: content }} />
+        <IconButton onClick={() => onDelete(id)} sx={{ float: "right" }}>
+          <DeleteIcon />
+        </IconButton>
+      </CardContent>
+    </Card>
   );
 }
 
-export default Note;  
+export default Note;
