@@ -16,7 +16,6 @@ Add, delete, and format notes with rich text — securely saved per user in the 
 - ☁️ **Realtime Firestore Database** – notes saved per user
 - 🎨 **Material UI** styling with responsive layout
 - 🌙 **Dark/Light Theme Toggle**
-- 📱 **Mobile-friendly** with horizontal scroll header
 - 🔄 Live updates without page refresh
 - ♻️ Clean component-based architecture
 
@@ -28,7 +27,7 @@ Add, delete, and format notes with rich text — securely saved per user in the 
 - **UI**: Material UI (MUI)
 - **Auth & DB**: Firebase Authentication & Firestore
 - **Rich Text**: React Quill
-- **Deployment**: [Netlify / Vercel / Firebase Hosting] *(choose one)*
+- **Deployment**: Netlify
 
 ---
 
