@@ -5,7 +5,7 @@ Add, delete, and format notes with rich text — securely saved per user in the 
 
 ## 🚀 Live Demo
 
-🔗 [Add your deployed link here, e.g., https://keeper-app.netlify.app](#)
+🔗 [https://keeper-skynote-app.netlify.app/](#)
 
 ---
 
